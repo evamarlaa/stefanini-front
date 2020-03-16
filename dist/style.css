@@ -68,6 +68,7 @@ fieldset {
 
 #contact input[type="text"],
 #contact input[type="email"],
+#contact input[type="date"],
 #contact input[type="tel"],
 #contact input[type="url"],
 #contact textarea {

@@ -6,17 +6,17 @@ var nationality = document.getElementById('nationality');
 var naturality = document.getElementById('naturality');
 var cpf = document.getElementById('cpf');
 
-form.addEventListener('submit', function(e) {
-    var url = "http://localhost:8080/api/person";
+let form = document.getElementById('contact');
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
 
-    var xhttp = new XMLHttpRequest();
-    xhttp.open("GET", url, true);
+            let data = {};
+            let inputs = [].slice.call(e.target.getElementsByTagName('input'));
+            inputs.forEach(input => { data[input.id] = input.value });
 
-    xhttp.onreadystatechange = function() {//Função a ser chamada quando a requisição retornar do servidor
-        if ( xhttp.readyState == 4 && xhttp.status == 200 ) {//Verifica se o retorno do servidor deu certo
-            console.log(xhttp.responseText);
-        }
-    }
-
-    xhttp.send(); //A execução do script CONTINUARÁ mesmo que a requisição não tenha retornado do servidor   
-});
+            fetch('http://localhost:8080/api/person', {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: { "Content-type": "application/json; charset=UTF-8", "Authorization": "Basic " + btoa("admin" + ":" + "2512")}
+          });
+        });
